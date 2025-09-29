@@ -26,19 +26,16 @@ class _SignupScreenState extends State<SignupScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // label dengan tanda *
     Widget requiredLabel(String text) => Row(
           children: [
-            Text(
-              text,
-              style: const TextStyle(fontSize: 13),
-            ),
-            const Text(
-              ' *',
-              style: TextStyle(color: Colors.red, fontSize: 13),
-            ),
+            Text(text, style: const TextStyle(fontSize: 13)),
+            const Text('*',
+                style: TextStyle(color: Colors.red, fontSize: 13)),
           ],
         );
 
+    // tombol utama
     Widget primaryButton(String label, VoidCallback onTap) => GestureDetector(
           onTap: onTap,
           child: Container(
@@ -48,7 +45,7 @@ class _SignupScreenState extends State<SignupScreen> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(28),
               gradient: const LinearGradient(
-                colors: [Color(0xFF1E88FF), Color(0xFF27D7FF)],
+                colors: [Color(0xFF1E88FF), Color(0xFF2D70FF)],
               ),
               boxShadow: [
                 BoxShadow(
@@ -82,6 +79,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   fit: BoxFit.contain,
                 ),
                 const SizedBox(height: 18),
+
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 24),
                   child: Align(
@@ -96,6 +94,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                 ),
                 const SizedBox(height: 14),
+
                 Container(
                   width: 360,
                   margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -159,26 +158,30 @@ class _SignupScreenState extends State<SignupScreen> {
                       const SizedBox(height: 16),
 
                       primaryButton('Continue', () {
+                        // opsional: tampilkan snackbar sukses dulu
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Sign up success')),
+                          const SnackBar(
+                            content: Text('Sign up success'),
+                            duration: Duration(seconds: 2),
+                          ),
                         );
 
-                        // pindah ke Sign In (hapus semua route sebelumnya)
+                        // lalu pindah ke Sign In
                         Navigator.pushNamedAndRemoveUntil(
                           context,
-                          LoginScreen.route,
+                          LoginScreen.route, // '/signin'
                           (route) => false,
                         );
                       }),
+
                       const SizedBox(height: 12),
+
                       Center(
                         child: TextButton(
-                          onPressed: () {
-                            Navigator.pushReplacementNamed(
-                              context,
-                              LoginScreen.route,
-                            );
-                          },
+                          onPressed: () => Navigator.pushReplacementNamed(
+                            context,
+                            LoginScreen.route,
+                          ),
                           child: const Text(
                             'Sign In',
                             style: TextStyle(fontSize: 13),
